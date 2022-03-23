@@ -1,4 +1,3 @@
-from pyrsistent import v
 
 
 class Element:
@@ -180,13 +179,13 @@ class HashTable:
 
 
 def main():
-    print(10 % 13)
+    
 
     def test_function(size,c1 = 1,c2 = 0):
         table = HashTable(size,c1,c2)
         number = 13
         string = 'ABCDEFGHIJKLMNO'
-        for i in range(1,len(string)):
+        for i in range(1,len(string) + 1):
             if i == 6:
                 table.insert(Element(18,string[i - 1]))
             elif i == 7:
@@ -213,8 +212,8 @@ def main():
         table = HashTable(size,c1,c2)
         number = 13
         string = 'ABCDEFGHIJKLMNO'
-        for i in range(len(string)):
-            table.insert(Element(13 * (i+1),string[i]))
+        for i in range(1,len(string) + 1):
+            table.insert(Element(13 * i,string[i - 1]))
         print(table)
 
 
