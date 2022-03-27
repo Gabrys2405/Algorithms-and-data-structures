@@ -37,7 +37,7 @@ class UnrolledList:
         else:
             node = self.head
             elem_index = index // SIZE
-            node_old = node
+            
             i = 0
             while i != elem_index:
                 i += 1
@@ -101,7 +101,7 @@ class UnrolledList:
                             node.add(index % SIZE,data)
                             node.length += 1
                         else:
-                            node.next.add(index % SIZE,data)
+                            node.next.add((index % SIZE) - 1,data)
                             node.next.length += 1
 
             else:
@@ -113,26 +113,7 @@ class UnrolledList:
                 node_new.length += 1
    
            
-            # while node:
-            #     if node.length != SIZE:
-            #         node.add(index,data)
-            #         node.length += 1
-            #     else:
-            #         if node.next is None:
-            #             new_node = Node()
-            #             new_node.next = None
-            #             node.next= new_node
-            #             for i in range(int(SIZE/2),SIZE):
-            #                 new_node.tab[i-int(SIZE/2)] = node.tab[i]
-            #                 node.tab[i] = None
-                
-            #         if index < int(SIZE/2):
-            #             node.add(index,data)
-            #             node.length += 1
-            #         else:
-            #             node.next.add(index,data)
-            #             node.next.length += 1
-            #     node = node.next
+ 
        
     def delete(self,index):
         
@@ -141,7 +122,7 @@ class UnrolledList:
         else:
             node = self.head
             elem_index = index // SIZE
-            node_old = node
+            
             i = 0
             while i != elem_index:
                 i += 1
@@ -158,67 +139,34 @@ class UnrolledList:
                     node.add(index,element)
                     node.next.remove(0)
                     node.next.length -= 1
+                    node.length += 1
                     if node.next.length < SIZE // 2:
                         for i in range(node.next.length):
                             node.add(index + 1,node.next.tab[i])
                             node.length += 1
+                            index += 1
                         node.next = node.next.next
 
 
     def print_list(self):
         node = self.head
-        i = 0
-        while node.next:
-            i += 1
-            node = node.next
         print('[',end = '',sep = '')
-        for j in range(i * SIZE):
-            if j == (i * SIZE) - 1:
-                print(self.get(j),end = '',sep = '')
+        while node:
+            if node.next:
+                for i in range(node.length):
+                    print(node.tab[i],', ',sep='',end = '')
             else:
+                for i in range(node.length):
+                    if i != node.length - 1:
+                        print(node.tab[i],', ',sep='',end = '')
+                    else:
+                        print(node.tab[i],sep='',end = '')
 
-                print(self.get(j),', ',end = '',sep = '')
+            node = node.next
              
         print(']',sep='')   
        
-        # iter = 0
-        # if self.head == None:
-        #     node = Node()
-        #     node.next = None
-        #     self.head = node
-        #     node.tab[index] = data
-        #     node.length += 1
-        # else:
-        #     node = self.head
-            
-        #     while node:
-        #         if node.length != SIZE and node.next == None:
-
-        #             node.add(index,data)
-        #             node.length += 1
-        #             node = node.next
-        #         elif node.next == None:
-        #             new_node = Node()
-        #             new_node.next = None
-        #             node.next = new_node
-        #         else:
-
-        #             if index < SIZE:
-                
-        #                 for i in range(int(SIZE/2),SIZE):
-        #                     node.next.tab[i - int(SIZE/2)] = node.tab[i]
-        #                     node.tab[i] = None
-                        
-        #                 if index < int(SIZE/2):
-        #                     node.add(index,data)
-        #                     new_node.length = int(SIZE/2)
-                            
-        #                 else:
-        #                     new_node.add(index,data)
-        #                     new_node.length += (int(SIZE/2) + 1)
-        #                 node.length = int(SIZE/2)
-        #             node = new_node.next
-                    
+      
                     
 
 
@@ -238,22 +186,7 @@ list.delete(2)
 list.print_list()
 
 
-# list.insert(0,55)
-# print('COKOLWIEK')
-# list.insert(1,56)
-# list.insert(2,57)
-# list.insert(3,58)
-# list.insert(4,59)
-# print('CKOLOWIEK2')
-# list.insert(5,60)
-# list.insert(6,61)
-# print('COKOLWIEK3')
-# list.insert(4,62)
-# list.insert(5,63)
-# print('COKOLWIEK')
 
-# list.insert(6,64)
-# print('COKOLWIEK')
 
 
 
