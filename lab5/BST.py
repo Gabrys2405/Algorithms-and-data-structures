@@ -32,10 +32,7 @@ class Bst:
         if self.is_empty():
             node = self.create(key,data)
             root = RootNode(node)
-            self.head = root.head
-
-         
-            
+            self.head = root.head   
         else:
             if node is None:
                 node = self.head
@@ -50,6 +47,8 @@ class Bst:
                     node.right = self.create(key,data)
                 else:
                     self.insert(key,data, node.right)
+            elif key == node.key:
+                node.data = data
                 
     def search(self,key,node = None):
         
@@ -72,10 +71,12 @@ class Bst:
         if node == None:
             return node 
         if key < node.key:
-            node.left = self.delete(key,node.left)
+            if node.left:
+                node.left = self.delete(key,node.left)
             return node
         if key > node.key:
-            node.right = self.delete(key,node.right)
+            if node.right:
+                node.right = self.delete(key,node.right)
             return node
         if node.right == None:
             return node.left
@@ -84,8 +85,10 @@ class Bst:
         min_node = node.right
         while min_node.left:
             min_node = min_node.left
-        node.data = min_node
-        node.right = self.delete(min_node.data,node.right)
+        node.key = min_node.key
+        node.data = min_node.data
+        node.right = self.delete(node.key,node.right)
+    
         return node
         
     def print_tree(self):
@@ -101,6 +104,47 @@ class Bst:
             print(lvl*" ", node.key, node.data)
      
             self._print_tree(node.left, lvl+5)
+    def inorder(self,list ,node = None):
+        
+        if node == None:
+            node = self.head
+        if node.left != None:
+            self.inorder(list,node.left)
+        if node != None:
+            key = str(node.key)
+            data = str(node.data)
+            list.append((key + ':' + data))
+        if node.right != None:
+            self.inorder(list,node.right)
+        return list
+
+    def print_list(self):
+        list = []
+        print('[%s]'%', '.join(map(str,self.inorder(list))))
+    def height(self,node = 1):
+        if node == 1:
+            node = self.head 
+
+        if node == None:
+            return 0
+        else:
+            return 1 + max(self.height(node.left),self.height(node.right))
+
+    # def swap(self,key,data,node = None):
+    #     if node == None:
+    #         node = self.head 
+        
+    #     if key == node.key:
+    #         node.data = data
+            
+    #     if key < node.key:
+    #         if node.left == None:
+    #             return None
+    #         return self.swap(key,data,node.left)
+    #     if node.right == None:
+    #         return False
+    #     return self.swap(key,data,node.right)
+
     
 
 
@@ -122,14 +166,28 @@ def main():
 
 
     tree.print_tree()
+    tree.print_list()
     
+    print(tree.search(24))
+    
+    tree.insert(20,'AA')
+    tree.insert(6,'M')
+    tree.delete(62)
 
-    print(tree.search(60))
-    tree.delete(91)
-
+    
+    tree.insert(59,'N')
+    tree.insert(100,'P')
+    tree.delete(8)
+    tree.delete(15)
+    tree.insert(55,'R')
+    tree.delete(50)
+    tree.delete(5)
+    tree.delete(24)
+    print(tree.height())
+    tree.print_list()
     tree.print_tree()
-    print('TEST')
 
+    
 
 if __name__ == "__main__":
     main()
