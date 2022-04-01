@@ -69,7 +69,6 @@ class HashTable:
             while result.key != key:
 
                 if failure == self.size:
-                    print ('Brak danej')
                     return None
                 else:
 
@@ -138,7 +137,7 @@ class HashTable:
         end = str('}') 
         for i in range(self.size):
             if self.tab[i]:
-                begin += (str(self.tab[i].key) + ": '" + str(self.tab[i].value)) + "'"
+                begin += (str(self.tab[i].key) + ":" + str(self.tab[i].value))
                 if (i != self.size - 1):
                     begin+= ", "
             else:
