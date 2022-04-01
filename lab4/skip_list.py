@@ -103,9 +103,6 @@ class SkipList:
                 node = node.next[lvl]    
             print("")
     
-        
-        
-    
     def __str__(self, new = None):   
         
        if new == None:
@@ -122,10 +119,6 @@ class SkipList:
                     begin += str(key) + ':' + str (value)
             end = ']'
             return begin + end 
-            
-
-
-
 
 def main():
 
@@ -134,11 +127,10 @@ def main():
     for i in range(1,16):
         skip_list.insert(i,string[i - 1])
     
-    print(skip_list)
+    skip_list.displayList_()
     print(skip_list.search(2))
     skip_list.insert(2,'Z')
     print(skip_list.search(2))
-    print(skip_list)
     skip_list.remove(5)
     skip_list.remove(6)
     skip_list.remove(7)
@@ -150,11 +142,11 @@ def main():
     for i in range(15,0,-1):
         
         skip_list2.insert(i,string[15-i])
-    print(skip_list2)
+    skip_list2.displayList_()
     print(skip_list2.search(2))
     skip_list2.insert(2,'Z')
     print(skip_list2.search(2))
-    print(skip_list2)
+    
     skip_list2.remove(5)
     skip_list2.remove(6)
     skip_list2.remove(7)
