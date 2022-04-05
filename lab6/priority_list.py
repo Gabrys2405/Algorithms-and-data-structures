@@ -48,7 +48,7 @@ class PrioQueue:
             buf = self.tab[0]
             self.tab = []
             self.size -= 1
-            return buf
+            return buf.data
         else:
             result = self.tab[0]
            
@@ -80,7 +80,7 @@ class PrioQueue:
                         l_in = self.left(l_in)
                     if l_in > self.size or r_in >= self.size:
                         break
-            return result
+            return result.data
 
 
 
@@ -93,7 +93,7 @@ class PrioQueue:
     def parent(self, indeks):
         return ( indeks - 1) // 2
     def peek(self):
-        return self.tab[0]
+        return self.tab[0].data
     def print_tab(self):
         if self.is_empty():
             print('{}')
