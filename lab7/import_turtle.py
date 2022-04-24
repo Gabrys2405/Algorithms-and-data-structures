@@ -82,7 +82,8 @@ def draw_map(edges, col=None):
     turtle.hideturtle()
     
     while True:
-      wn.update()     
+      wn.update() 
+      
       
       
 if __name__ == "__main__":      
