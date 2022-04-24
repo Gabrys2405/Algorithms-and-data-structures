@@ -151,7 +151,6 @@ def main():
     skip_list2.remove(6)
     skip_list2.remove(7)
     print(skip_list2)
-    skip_list2.insert(6,'W') 
     print(skip_list2)
 
 if __name__ == "__main__":

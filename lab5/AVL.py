@@ -1,4 +1,3 @@
-#SKOŃCZONE
 
 
 
@@ -6,6 +5,7 @@ class RootNode:
     def __init__(self,root):
     
         self.head = root
+        self.heigh = 1
 
 
 class Node:
@@ -14,6 +14,7 @@ class Node:
         self.data = value
         self.left = None
         self.right = None
+        self.heigh = 0
 
 class Bst:
 
@@ -26,7 +27,7 @@ class Bst:
             return True
     def create(self,key,data):
         return Node(key,data)
-
+    
     def insert(self, key,data, node = None):
         
         if self.is_empty():
@@ -49,6 +50,8 @@ class Bst:
                     self.insert(key,data, node.right)
             elif key == node.key:
                 node.data = data
+
+        
                 
     def search(self,key,node = None):
         
@@ -130,68 +133,123 @@ class Bst:
         else:
             return 1 + max(self.height(node.left),self.height(node.right))
 
-    # def swap(self,key,data,node = None):
-    #     if node == None:
-    #         node = self.head 
-        
-    #     if key == node.key:
-    #         node.data = data
-            
-    #     if key < node.key:
-    #         if node.left == None:
-    #             return None
-    #         return self.swap(key,data,node.left)
-    #     if node.right == None:
-    #         return False
-    #     return self.swap(key,data,node.right)
 
+class AVL(Bst):
     
 
+    def gHeight(self,head):
+        if not head:
+            return 0
+        return head.heigh
+    def gBalance(self,head):
+        if not head:
+            return 0
+        if not head.left:
+            return self.gHeight(head.right) + 1
+        elif not head.right:
+            return self.gHeight(head.left) + 1
+        else:
+            return (self.gHeight(head.right) + 1) - (self.gHeight(head.left) + 1)
+    def lRotate(self,node):
+        if node.left:   
+            l = node.left
+            bufer = l.left
+            l.right = node 
+            node = l
+            
+             
+
+
+            
+            l.heigh = 1 + max(self.gHeight(l.left),self.gHeight(l.right))
+            return l
+
+
+    
+    def rRotate(self,node):
+        if node.right:    
+            r = node.right
+            buffer = r.right
+            r.right = node
+            node.left = buffer
+
+            node.heigh = 1 + max(self.gHeight(node.left),self.gHeight(node.right))
+            r.heigh = 1 + max(self.gHeight(r.left),self.gHeight(r.right))
+
+            return r
+    def insert(self, key,data, node = None):
+        
+        if self.is_empty():
+            node = self.create(key,data)
+            root = RootNode(node)
+            self.head = root.head   
+        else:
+            if node is None:
+                node = self.head
+            
+            if key < node.key:
+                if node.left == None:
+                    node.left = self.create(key,data)
+                else:
+                    self.insert(key,data, node.left)
+            elif key > node.key:
+                if node.right == None:
+                    node.right = self.create(key,data)
+                else:
+                    self.insert(key,data, node.right)
+            elif key == node.key:
+                node.data = data
+    
+        node.heigh = 1 + max(self.gHeight(node.left), self.gHeight(node.right))
+        
+        balance = self.gBalance(node)
+        
+        if balance > 1:
+            if key < node.left.key:
+                node = self.lRotate(node)
+                
+            
+        if balance < -1:
+            if key > node.right.key:
+                return self.rRotate(node)
+           
+
+        return node
+    
 
 def main():
 
-    tree = Bst()
+    tree = AVL()
     tree.insert(50,'A')
     tree.insert( 15, 'B')
     tree.insert(62, 'C')
     tree.insert(5, 'D')
-    tree.insert(20, 'E')
-    tree.insert( 58, 'F')
-    tree.insert(91, 'G')
-    tree.insert(3, 'H')
-    tree.insert(8, 'I')
-    tree.insert( 37, 'J')
-    tree.insert(60, 'K')
-    tree.insert(24, 'L')
+    tree.insert(2, 'E')
+    tree.insert( 1, 'F')
+    tree.insert(11, 'G')
+    tree.insert(100, 'H')
+    tree.insert(7, 'I')
+    tree.insert( 6, 'J')
+    tree.insert(55, 'K')
+    tree.insert(52, 'L')
+
+    tree.insert( 51, 'M')
+    tree.insert(57, 'N')
+    tree.insert(8, 'O')
+    tree.insert(9, 'P')
+    tree.insert( 10, 'R')
+    tree.insert(99, 'S')
+    tree.insert(12, 'T')
 
 
     tree.print_tree()
     tree.print_list()
     
-    print(tree.search(24))
+    print(tree.search(10))
     
-    tree.insert(20,'AA')
-    tree.insert(6,'M')
-    tree.delete(62)
-
-    
-    tree.insert(59,'N')
-    tree.insert(100,'P')
-    tree.delete(8)
-    tree.delete(15)
-    tree.insert(55,'R')
-    tree.delete(50)
-    tree.delete(5)
-    tree.delete(24)
-    print(tree.height())
-    tree.print_list()
-    tree.print_tree()
+   
 
     
 
 if __name__ == "__main__":
     main()
-
-
-
-
