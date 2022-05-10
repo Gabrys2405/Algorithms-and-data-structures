@@ -124,13 +124,13 @@ class PrioQueue:
             self.print_tree(self.left(idx), lvl+1)
     def swap(self):
         for i in range(self.tab_size):
-            check = False
-            for j in range(self.tab_size - 1):
-                if self.tab[j] > self.tab[j + 1]:
-                    self.tab[j],self.tab[j + 1] = self.tab[j+1],self.tab[j]
-                    check = True
-            if check == False:
-                break
+            min = i 
+            for j in range(i, self.tab_size):
+                if self.tab[j] < self.tab[min]:
+                    
+                    min = j
+            self.tab[i],self.tab[min] = self.tab[min],self.tab[i]
+            
     def shift(self):
         for j in range(self.tab_size):
             for i in range(j,self.tab_size): 

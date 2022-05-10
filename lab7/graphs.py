@@ -1,4 +1,4 @@
-from import_turtle import draw_map
+
 
 
 class Vertex:
