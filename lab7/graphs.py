@@ -282,7 +282,7 @@ def main():
         graf_list = graf.edges()
         
 
-        draw_map(graf_list)
+        
     
     test(graf2)
 
